@@ -1,0 +1,76 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Terraform Architecture">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Root -->
+        <mxCell id="terraform" value="terraform" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="20" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- envs -->
+        <mxCell id="env" value="envs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="120" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="dev" value="development&#10;- ec2.tf&#10;- infra.tf&#10;- main.tf&#10;- outputs.tf&#10;- sg.tf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="80" y="220" width="250" height="140" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="prod" value="production&#10;- compute.tf&#10;- infrastructure.tf&#10;- main.tf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="380" y="220" width="250" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Modules -->
+        <mxCell id="modules" value="modules" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="900" y="120" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="network" value="network module&#10;- vpc.tf&#10;- subnets&#10;- routing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="820" y="220" width="200" height="100" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="nat" value="nat module&#10;- natgw.tf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="220" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="compute" value="compute module&#10;- public_ec2.tf&#10;- private_ec2.tf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="820" y="360" width="200" height="100" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="elb" value="elb module&#10;- elb.tf&#10;- listener.tf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="360" width="200" height="100" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sg" value="sg module&#10;- sg.tf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="820" y="500" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="iam" value="iam module&#10;- role.tf&#10;- instance_profile.tf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="500" width="200" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Connections -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;" edge="1" parent="1" source="terraform" target="env"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;" edge="1" parent="1" source="terraform" target="modules"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;" edge="1" parent="1" source="env" target="dev"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;" edge="1" parent="1" source="env" target="prod"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=block;" edge="1" parent="1" source="dev" target="network"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=block;" edge="1" parent="1" source="dev" target="compute"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=block;" edge="1" parent="1" source="prod" target="network"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=block;" edge="1" parent="1" source="prod" target="compute"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;" edge="1" parent="1" source="network" target="nat"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;" edge="1" parent="1" source="network" target="compute"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;" edge="1" parent="1" source="compute" target="elb"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;" edge="1" parent="1" source="compute" target="sg"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;" edge="1" parent="1" source="compute" target="iam"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
