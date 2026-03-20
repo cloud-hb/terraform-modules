@@ -14,7 +14,74 @@
 
 ![Architecture Diagram ](./docs/assets/diagrams/architecture-diagram.drawio.png)
 
+ <details>
+  <summary>🗺️ <b> Diagram using [Mermaid ](https://mermaid.ai/open-source/intro) </b> <kbd><b>(👆🖱️ click to Show/Hide)<b/></kbd></summary>
+  <br/>
+
+  ```mermaid
+  flowchart TD
+  
+      %% Root
+      A["terraform"]
+  
+      %% Environments
+      subgraph ENV["environments"]
+          direction LR
+          D["development<br/>- ec2.tf<br/>- infra.tf<br/>- main.tf<br/>- outputs.tf<br/>- sg.tf"]
+          E["production<br/>- compute.tf<br/>- infrastructure.tf<br/>- main.tf"]
+      end
+  
+      %% Modules
+      subgraph MOD["modules"]
+          direction TB
+  
+          F["network module<br/>- vpc.tf<br/>- subnets<br/>- routing"]
+          G["nat module<br/>- natgw.tf"]
+          H["compute module<br/>- public_ec2.tf<br/>- private_ec2.tf"]
+          I["elb module<br/>- elb.tf<br/>- listener.tf"]
+          J["sg module<br/>- sg.tf"]
+          K["iam module<br/>- role.tf<br/>- instance_profile.tf"]
+      end
+  
+      %% Top-level links
+      A --> ENV
+      A --> MOD
+  
+      %% Module relationships
+      F --> G
+      F --> H
+      H --> I
+      H --> J
+      H --> K
+  
+      %% Cross references (dashed)
+      E -.-> F
+      E -.-> H
+      D -.-> H
+  
+      %% Optional layout tweaks
+      linkStyle 6,7,8 stroke-dasharray: 5 5
+  
+      %% Styling
+      style A fill:#cfe2ff,stroke:#6c8ebf,stroke-width:2px
+  
+      style ENV fill:#fff2cc,stroke:#d6b656,stroke-width:2px
+      style MOD fill:#d9ead3,stroke:#82b366,stroke-width:2px
+  
+      style D fill:#f4cccc,stroke:#cc0000,stroke-width:1.5px
+      style E fill:#f4cccc,stroke:#cc0000,stroke-width:1.5px
+  
+      style F fill:#eeeeee,stroke:#999999
+      style G fill:#eeeeee,stroke:#999999
+      style H fill:#eeeeee,stroke:#999999
+      style I fill:#eeeeee,stroke:#999999
+      style J fill:#eeeeee,stroke:#999999
+      style K fill:#eeeeee,stroke:#999999
+  ```
+
+ </details>
 </details>
+
 
 ## 📌 **Table of Contents (TOC)**
 
